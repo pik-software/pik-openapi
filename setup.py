@@ -24,7 +24,7 @@ with open(path.join(here, 'requirements.dev.txt'), encoding='utf-8') as f:
 
 setup(
     name='pik-openapi',
-    version='1.0.0',
+    version='1.0.1',
     description='PIK DRF openapi extensions',
     # https://packaging.python.org/specifications/core-metadata/#description-optional
     long_description=long_description,
