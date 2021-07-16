@@ -158,14 +158,15 @@ class MyViewSet(ViewSet):
 
 For generate schema as HTML file:
 
-- Install `redoc-cli`
+- Install [redoc-cli](https://github.com/Redocly/redoc/blob/master/cli/README.md)
 ```bash
 npm install -g redoc-cli
 ```
-- Download your schema as JSON file
+- Get your schema file
 - Generate HTML file with `redoc-cli`
 ```bash
-redoc-cli bundle your_schema.json
+redoc-cli bundle static/_api_v1_schema_.json \
+--output static/_api_v1_schema_.html
 ```
 
-More info `https://github.com/Redocly/redoc/blob/master/cli/README.md`
+More info ``
