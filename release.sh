@@ -2,7 +2,7 @@
 
 set -e
 
-git checkout master
+git checkout main
 git pull
 
 die() { echo "$*" 1>&2 ; exit 1; }
@@ -32,4 +32,4 @@ python setup.py sdist
 python -m twine upload dist/${NAME}-${VERSION}.tar.gz
 git tag -a v$VERSION -m "version $VERSION"
 git push --tags
-git push origin master
+git push origin main
