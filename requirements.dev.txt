@@ -2,4 +2,3 @@ pytest
 prospector
 pylint
 pylint-django
-

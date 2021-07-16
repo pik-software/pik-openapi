@@ -24,7 +24,7 @@ with open(path.join(here, 'requirements.dev.txt'), encoding='utf-8') as f:
 
 setup(
     name='pik-openapi',
-    version='2.0.5',
+    version='1.0.0',
     description='PIK DRF openapi extensions',
     # https://packaging.python.org/specifications/core-metadata/#description-optional
     long_description=long_description,
@@ -86,7 +86,6 @@ setup(
     project_urls={
         'Bug Reports': 'https://github.com/pik-software/pik-openapi/issues',
         'Funding': 'https://github.com/pik-software/pik-openapi',
-        'Say Thanks!': 'https://saythanks.io/to/pik_software',
         'Source': 'https://github.com/pik-software/pik-openapi',
     },
 )

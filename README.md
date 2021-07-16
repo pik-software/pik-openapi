@@ -41,6 +41,14 @@ Some PIK protocol DRF openapi extensions:
 
 ## Installation
 
+- Add `pik_openapi` to `INSTALLED_APPS` in `settings.py`
+```python
+INSTALLED_APPS = [
+    ...
+    'pik_openapi',
+]
+```
+
 - Setup default schema inspector class with `settings.py`
 ```python
 REST_FRAMEWORK = {
