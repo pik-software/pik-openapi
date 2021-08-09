@@ -1,3 +1,9 @@
+## 1.0.3 ##
+
+### FIX ###
+
+- Fixed type introspection
+
 ## 1.0.2 ##
 
 ### FIX ###

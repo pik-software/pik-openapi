@@ -40,6 +40,7 @@ class RedundantSchemaKeys(Exception):
 
 class TypedSerializerAutoSchema(AutoSchema):
     """Adds enum for `serializer._type`"""
+    TYPE_FIELD = 'type'
 
     def map_serializer(self, serializer):
         schema = super().map_serializer(serializer)
