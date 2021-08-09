@@ -41,30 +41,18 @@ class RedundantSchemaKeys(Exception):
 class TypedSerializerAutoSchema(AutoSchema):
     """Adds enum for `serializer._type`"""
 
-    TYPE_FIELDS = ['_type', 'type']
-
-    def map_field(self, field):
-        schema = super().map_field(field)
-
-        if field.field_name in self.TYPE_FIELDS:
-            type_name = field.to_representation(field.parent)
+    def map_serializer(self, serializer):
+        schema = super().map_serializer(serializer)
+        properties = schema['properties']
+        type_field = serializer.fields.get(self.TYPE_FIELD)
+        has_typefield = (isinstance(serializer, ModelSerializer)
+                         and isinstance(type_field, SerializerMethodField)
+                         and self.TYPE_FIELD in properties)
+        if has_typefield:
+            type_name = type_field.to_representation(serializer.Meta.model())
             if type_name:
-                schema['enum'] = [type_name.lower()]
-
+                properties[self.TYPE_FIELD]['enum'] = [type_name.lower()]
         return schema
-
-    # def map_serializer(self, serializer):
-    #     schema = super().map_serializer(serializer)
-    #     properties = schema['properties']
-    #     type_field = serializer.fields.get(self.TYPE_FIELD)
-    #     has_typefield = (isinstance(serializer, ModelSerializer)
-    #                      and isinstance(type_field, SerializerMethodField)
-    #                      and self.TYPE_FIELD in properties)
-    #     if has_typefield:
-    #         type_name = type_field.to_representation(serializer.Meta.model())
-    #         if type_name:
-    #             properties[self.TYPE_FIELD]['enum'] = [type_name.lower()]
-    #     return schema
 
 
 class ModelSerializerFieldsAutoSchema(AutoSchema):
@@ -293,8 +281,6 @@ class MethodTagAutoSchema(AutoSchema):
         return super().get_tags(path, method)
 
 
-
-
 class PIKAutoSchema(
         CustomizableSerializerAutoSchema,
         JSONFieldAutoSchema,
@@ -325,7 +311,7 @@ else:
             r'(((?=[^_])[a-z0-9])_[a-z0-9])' r'|(^_[a-z0-9])' r'|(\W_[a-z0-9])')
 
         def map_serializer(self, serializer):
-            result = camelize(super(CamelCaseAutoSchema, self).map_serializer(
+            result = camelize(super().map_serializer(
                 serializer))
             return result
 
@@ -342,7 +328,7 @@ else:
 
         def get_operation(self, path, method):
             """ Camelizing url params escaping `__` construction """
-            schema = super(CamelCaseAutoSchema, self).get_operation(path, method)
+            schema = super().get_operation(path, method)
             for param in schema['parameters']:
                 param['name'] = self.camelize(param['name'])
             return schema
